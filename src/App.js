@@ -7,8 +7,8 @@ class App extends React.Component {
         super(props);
         this.state = {
             thingList: [
-                { id: 1, name: "calculator", description: "A calculator" },
-                { id: 2, name: "cell phone", description: "A cell phone" },
+                { id: 1, name: "calculator", description: "A graphing calculator" },
+                { id: 2, name: "cell phone", description: "A super cool cell phone" },
             ],
         };
         this.thingCreated = this.thingCreated.bind(this);
@@ -68,8 +68,10 @@ class ThingForm extends React.Component {
     }
 
     handleChange(event) {
-        this.setState( {name: event.target.value})
-        // handle desription as well
+        if(event.target.name === "name")
+            this.setState( {name: event.target.value})
+        else if(event.target.name === "description")
+            this.setState( {description: event.target.value})
     }
 
     handleSubmit(event) {
@@ -81,10 +83,27 @@ class ThingForm extends React.Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
+                <fieldset>
+
                 <label>
-                    Add thing: 
-                    <input type="text" value={this.state.name} onChange={this.handleChange} />
+                    Name: 
+                    <input
+                        type="text"
+                        name="name"
+                        value={this.state.name}
+                        onChange={this.handleChange}
+                    />
                 </label>
+                <label>
+                    Description:
+                    <input
+                        type="text"
+                        name="description"
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                    />
+                </label>
+                </fieldset>
                 <input type="submit" value="Add" />
             </form>
         );
